@@ -3,22 +3,26 @@
 // 添加命令的库
 const program = require('commander');
 // 工具库
-const { cleanArgs } = require('../utils');
+const { cleanArgs } = require('./utils/common');
+// 常量
+const { version } = require('./utils/constants');
+
 
 
 program
-  .version(`当前版本：${require('../package.json').version}`)
-  .description('Hello，我是耀哥，欢迎使用「lg-umijs-cli」')
-  .usage('<command> [options]');
+  .version(`当前版本：${version}`)
+  .description('欢迎使用「lg-umijs-cli」')
 
 program
   .command('create <app-name>')
-  .description('创建项目')
+  .alias('c')
+  .description('创建新项目')
   .option('-f, --force', '如果目录下已存在目标项目，则覆盖它')
   .action((name, cmd) => {
     const options = cleanArgs(cmd);
-    require('../lib/create')(name, options)
+    require('./create')(name, options)
   });
+
 
 // 解析命令行参数
 program.parse(process.argv);

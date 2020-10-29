@@ -24,10 +24,8 @@ function createDir(appName) {
   return new Promise((resolve, reject) => {
     fs.mkdir(`./${appName}`, function (err) {
       if (err) {
-        console.log(logSymbols.err, '项目目录创建失败');
         reject();
       } else {
-        console.log(logSymbols.success, '项目目录创建成功');
         resolve();
       }
     })
