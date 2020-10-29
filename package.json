@@ -3,6 +3,7 @@
   "version": "1.0.3",
   "description": "",
   "main": "index.js",
+  "private": false,
   "bin": {
     "lg-umijs-cli": "./bin/index.js"
   },

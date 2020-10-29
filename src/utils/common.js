@@ -1,4 +1,4 @@
-const logSymbols = require('log-symbols');
+// const logSymbols = require('log-symbols');
 const fs = require('fs');
 const { promisify } = require('util');
 const download = promisify(require('download-git-repo'));

@@ -1,12 +1,12 @@
 const fsextra = require('fs-extra');
 const path = require('path');
-const logSymbols = require('log-symbols'); // 着色符号
 const inquirer = require('inquirer'); // 命令行交互工具
 const { createDir, clone } = require('./utils/common');
 const { exitCode } = require('process');
-const remote = 'github:LiHongyao/umijs-template#main'
 const chalk = require('chalk'); // 颜色显示工具
 
+// direct:https://URI 的形式克隆避免 “git clone' failed with status 128”
+const remote = 'direct:https://github.com/LiHongyao/umijs-template.git#main'
 
 const existsChoices = [{
   name: 'action',
