@@ -1,11 +1,11 @@
 {
   "name": "lg-umijs-cli",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "private": false,
   "bin": {
-    "lg-umijs-cli": "./bin/index.js"
+    "lg-umijs-cli": "bin/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
