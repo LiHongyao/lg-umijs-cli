@@ -2,11 +2,8 @@ const fsextra = require('fs-extra');
 const path = require('path');
 const inquirer = require('inquirer'); // 命令行交互工具
 const { createDir, clone } = require('./utils/common');
-const { exitCode } = require('process');
 const chalk = require('chalk'); // 颜色显示工具
 
-// direct:https://URI 的形式克隆避免 “git clone' failed with status 128”
-const remote = 'direct:https://github.com/LiHongyao/umijs-template.git#main'
 
 const existsChoices = [{
   name: 'action',
@@ -17,26 +14,55 @@ const existsChoices = [{
     { name: '取消创建', value: false }
   ]
 }];
-const survey = [
+
+const surveyChoices = [
   {
+    name: 'survey',
     type: 'confirm',
-    name: 'surveyAnwser',
-    message: '您觉得「耀哥」帅么？'
+    message: '讲道理，您觉得「耀哥」帅么？'
   }
 ];
 
+const templateChoices = [{
+  name: 'template',
+  type: 'list',
+  message: '请选择项目模板：',
+  choices: [
+    { name: 'H5', value: 'H5' },
+    { name: 'MP', value: 'MP' },
+    { name: 'ADMIN', value: 'ADMIN' }
+  ]
+}];
+
 async function create(appName, options) {
+  console.log(chalk.yellowBright('Hello，我是耀哥，美好的一天从我开始.'));
   // 问卷调查
-  const { surveyAnwser } = await inquirer.prompt(survey);
-  if(!surveyAnwser) {
+  const { survey } = await inquirer.prompt(surveyChoices);
+  console.log(survey);
+  if(!survey) {
     console.log(chalk.yellowBright('回答错误，你居然觉得「耀哥」不帅，程序终止！'));
     return false;
+  }
+  // 模板选择
+  const { template } = await inquirer.prompt(templateChoices);
+  let remote = '';
+  console.log()
+  switch(template) {
+    case 'H5':
+      // direct:https://URI 的形式克隆避免 “git clone' failed with status 128”
+      remote = 'direct:https://github.com/LiHongyao/umijs-template__h5.git#main'
+      break;
+    case 'MP':
+      remote = 'direct:https://github.com/LiHongyao/umijs-template__mp.git#main'
+      break;  
+    case 'ADMIN':
+      console.log(chalk.yellowBright('ADMIN 模板暂未开发，敬请期待哦~'));
+      return false;
   }
   // 获取当前命令执行时的工作目录
   const cwd = process.cwd();
   // 创建目标目录
   const targetDir = path.join(cwd, appName);
-  console.log(targetDir)
   // 判断目标目录是否已存在
   if (fsextra.existsSync(targetDir)) {
     // 如果强制创建（调用create命令是携带了-f参数）则删除已有目录
