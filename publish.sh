@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#! /usr/bin/env node
 set -e
 
 # 修改npm源地址
