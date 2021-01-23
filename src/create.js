@@ -1,3 +1,11 @@
+/*
+ * @Author: Li-HONGYAO
+ * @Date: 2020-11-21 17:05:02
+ * @LastEditTime: 2021-01-24 02:08:09
+ * @LastEditors: Li-HONGYAO
+ * @Description:
+ * @FilePath: /lg-umijs-cli/src/create.js
+ */
 const fs = require("fs");
 const path = require("path");
 const logSymbols = require("log-symbols");
@@ -15,6 +23,7 @@ const templateChoices = [
       { name: "H5", value: "H5" },
       { name: "MP", value: "MP" },
       { name: "ADMIN", value: "ADMIN" },
+      { name: "KS-APP", value: "KS-APP" },
     ],
   },
 ];
@@ -57,6 +66,10 @@ async function create(appName, options) {
       remote =
         "direct:https://github.com/LiHongyao/umijs-template__admin.git#master";
       break;
+    case "KS-APP":
+      remote =
+        "direct:https://github.com/LiHongyao/ks-app-template.git#master";
+      break;
   }
   // 获取当前命令执行时的工作目录
   const cwd = process.cwd();
@@ -69,12 +82,12 @@ async function create(appName, options) {
     // 判断是否强制删除并创建目录
     if (options.force) {
       overrideDir(targetDir, appName);
-      clone(remote, appName)
+      clone(remote, appName);
     } else {
       let { action } = await inquirer.prompt(existsChoices);
       if (action) {
         overrideDir(targetDir, appName);
-        clone(remote, appName)
+        clone(remote, appName);
       } else {
         console.log(
           logSymbols.info,
